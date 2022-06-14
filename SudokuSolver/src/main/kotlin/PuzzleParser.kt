@@ -1,5 +1,5 @@
-interface FileParser {
+interface PuzzleParser {
     fun getNumberOfSymbols(): Int
     fun getValidSymbols(): List<String>
-    fun getCellValues(): List<String>
+    fun getCellRows(): List<String>
 }
