@@ -1,17 +1,22 @@
 class Timer {
-    private var startTime : Long? = null
-    private var endTime : Long? = null
-
-    fun getElapsedTime(): Long{
-        if (startTime == null || endTime == null) return 0
-        return endTime!! - startTime!!
-    }
+    var timeElapsed: Long = 0
+        private set
+    private var startTime: Long = 0
+    private var endTime: Long = 0
 
     fun start(){
         startTime = System.currentTimeMillis()
     }
 
     fun stop(){
+        if (startTime.toInt() == 0) return
         endTime = System.currentTimeMillis()
+        reset()
+    }
+
+    private fun reset(){
+        timeElapsed += (endTime - startTime)
+        startTime = 0
+        endTime = 0
     }
 }

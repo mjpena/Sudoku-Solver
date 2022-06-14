@@ -6,14 +6,21 @@ internal class TimerTest{
     @Test
     fun getElapsedTimeTimerNeverStarted(){
         val timer: Timer = Timer()
-        assert(timer.getElapsedTime().toInt() == 0)
+        assert(timer.timeElapsed.toInt() == 0)
     }
 
     @Test
     fun getElapsedTimeNoEndTime(){
         val timer: Timer = Timer()
         timer.start()
-        assert(timer.getElapsedTime().toInt() == 0)
+        assert(timer.timeElapsed.toInt() == 0)
+    }
+
+    @Test
+    fun getElapsedTimeNoStartTime(){
+        val timer: Timer = Timer()
+        timer.stop()
+        assert(timer.timeElapsed.toInt() == 0)
     }
 
     @Test
@@ -22,7 +29,29 @@ internal class TimerTest{
         timer.start()
         Thread.sleep(2000)
         timer.stop()
-        val timeDifference = (timer.getElapsedTime() - 2000).absoluteValue
+        val timeDifference = (timer.timeElapsed - 2000).absoluteValue
+        assertTrue(timeDifference < 100)
+    }
+
+    @Test
+    fun getElapsedTimeMultipleTimes(){
+        val timer: Timer = Timer()
+        timer.start()
+        Thread.sleep(2000)
+        timer.stop()
+        var timeDifference = (timer.timeElapsed - 2000).absoluteValue
+        assertTrue(timeDifference < 100)
+
+        timer.start()
+        Thread.sleep(2000)
+        timer.stop()
+        timeDifference = (timer.timeElapsed - 4000).absoluteValue
+        assertTrue(timeDifference < 100)
+
+        timer.start()
+        Thread.sleep(2000)
+        timer.stop()
+        timeDifference = (timer.timeElapsed - 6000).absoluteValue
         assertTrue(timeDifference < 100)
     }
 }
