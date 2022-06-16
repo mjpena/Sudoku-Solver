@@ -1,38 +1,50 @@
-class Puzzle(numberOfSymbols: Int, cells: MutableList<MutableList<String>>) {
-    val rows: List<CellContainer> = List(ValidSymbolsSingleton.getSymbols().size) {CellContainer()}
-    val columns: List<CellContainer> = List(ValidSymbolsSingleton.getSymbols().size) {CellContainer()}
-    val blocks: List<CellContainer> = List(ValidSymbolsSingleton.getSymbols().size) {CellContainer()}
-    private var invalidPuzzleMessage = ""
+import java.io.File
+import kotlin.math.sqrt
+
+class Puzzle(inputFile: String, outputFile: String) {
+    var cells: List<List<Cell>> = listOf(listOf())
+    var rows: List<CellContainer> = listOf()
+    var columns: List<CellContainer> = listOf()
+    var blocks: List<CellContainer> = listOf()
+    var numberOfSymbols: Int = 0
+    var validSymbols: List<String> = listOf()
+    var invalidPuzzleMessage: String = ""
 
     init {
-        validatePuzzle(numberOfSymbols)
-        buildCells(cells)
+        parseInputFile(inputFile)
     }
 
-    private fun validatePuzzle(numberOfSymbols: Int){
-        if (ValidSymbolsSingleton.numberOfSymbols != ValidSymbolsSingleton.getSymbols().distinct().size){
-            invalidPuzzleMessage = ""
-        }
-        if (numberOfSymbols != ValidSymbolsSingleton.numberOfSymbols){
-            invalidPuzzleMessage = ""
-        }
+    private fun parseInputFile(inputFile: String){
+        val fileLines = File(inputFile).readLines()
+        parseNumberOfSymbols(fileLines)
+        parseValidSymbols(fileLines)
     }
 
-    private fun buildCells(cells: MutableList<MutableList<String>>){
-        var currentRowContainer: CellContainer
-        var rowContainerIterator: Iterator<CellContainer> = rows.iterator()
-        for (row in cells){
-            currentRowContainer = rowContainerIterator.next()
-            var currentColumnContainer: CellContainer
-            var columnContainerIterator: Iterator<CellContainer> = columns.iterator()
-            for (cell in row){
-                currentColumnContainer = columnContainerIterator.next()
-                Cell(currentRowContainer, currentColumnContainer, )
+    private fun parseNumberOfSymbols(fileLines: List<String>){
+        numberOfSymbols = fileLines[0].toInt()
+    }
+
+    private fun parseValidSymbols(fileLines: List<String>){
+        validSymbols = fileLines[1].split(" ")
+    }
+
+    private fun parseCells(fileLines: List<String>){
+        for((i, line) in fileLines.withIndex()){
+            val cellRow: MutableList<Cell> = mutableListOf()
+            for(cell in line){
+                cellRow.add(Cell(this, cell.toString()))
             }
         }
     }
 
-    private fun createCells(){
 
+   fun solve(){
+        val puzzleTimer: Timer = Timer()
+
+        puzzleTimer.start()
+        while (true){
+
+        }
+        puzzleTimer.stop()
     }
 }

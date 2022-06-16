@@ -1,5 +1,5 @@
-class CellContainer {
-    private val cells: MutableList<Cell> = mutableListOf()
+class CellContainer() {
+    val cells: MutableList<Cell> = mutableListOf()
     val solvedSymbols: PossibleSymbols = PossibleSymbols()
     val unsolvedSymbols: PossibleSymbols = PossibleSymbols()
 
